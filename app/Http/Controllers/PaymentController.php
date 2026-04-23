@@ -10,13 +10,13 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $payments = Payment::all();
+        $payments = Payment::with('order.menu')->get();
         return view('payment.index', compact('payments'));
     }
 
     public function create()
     {
-        $orders = Order::all();
+        $orders = Order::with('menu')->get();
         return view('payment.create', compact('orders'));
     }
 
@@ -36,7 +36,7 @@ class PaymentController extends Controller
     public function edit($id)
     {
         $payment = Payment::findOrFail($id);
-        $orders = Order::all();
+        $orders = Order::with('menu')->get();
         return view('payment.edit', compact('payment', 'orders'));
     }
 
